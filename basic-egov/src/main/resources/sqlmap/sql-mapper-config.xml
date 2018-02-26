@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias alias="filesVo" type="com.ohhoonim.vo.FilesVo"/>
+		<typeAlias alias="boardVo" type="com.ohhoonim.vo.BoardVo"/>
+		<typeAlias alias="empVo" type="com.ohhoonim.vo.EmpVo"/>
+		<typeAlias alias="deptVo" type="com.ohhoonim.vo.DeptVo"/>
+		<typeAlias alias="studentVo" type="com.ohhoonim.vo.StudentVo"/>
+	</typeAliases>
+</configuration>

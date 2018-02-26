@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Emp">
+
+	<resultMap id="emp" type="com.ohhoonim.vo.EmpVo">
+		<result property="empno" 	column="EMPNO" />
+		<result property="ename" 	column="ENAME" />
+		<result property="sal" 		column="SAL" />
+		<result property="manager" 	column="MANAGER" />
+		<result property="deptno" 	column="DEPTNO" />
+		<result property="hiredate" column="HIREDATE" />
+		<result property="age" 		column="AGE" />
+		<result property="comm" 	column="COMM" />
+	</resultMap>
+	<resultMap id="empMap" type="java.util.Map">
+		<result property="empno" 	column="EMPNO" javaType="java.lang.String" />
+		<result property="ename" 	column="ENAME"  javaType="java.lang.String" />
+		<result property="sal" 		column="SAL"  javaType="java.lang.String" />
+		<result property="manager" 	column="MANAGER"  javaType="java.lang.String" />
+		<result property="deptno" 	column="DEPTNO"  javaType="java.lang.String" />
+		<result property="hiredate" column="HIREDATE"  javaType="java.lang.String" />
+		<result property="age" 		column="AGE"  javaType="java.lang.String" />
+		<result property="comm" 	column="COMM"  javaType="java.lang.String" />
+		<result property="dname" 	column="DNAME"  javaType="java.lang.String" />
+	</resultMap>
+
+	<select id="empList" parameterType="empVo" resultMap="emp">
+		SELECT EMPNO, ENAME, SAL, MANAGER, DEPTNO, HIREDATE, AGE, COMM
+		FROM EMP
+		<where>
+			<if test="ename != null">
+				ENAME LIKE '%' || #{ename} || '%'
+			</if>
+			<if test="deptno != null">
+				AND DEPTNO = #{deptno}
+			</if>
+		</where>
+	</select>
+	<select id="containsNoDeptEmpList" parameterType="empVo" resultMap="emp">
+		SELECT EMPNO, ENAME, SAL, MANAGER, DEPTNO, HIREDATE, AGE, COMM
+		FROM EMP
+		WHERE DEPTNO = #{deptno} OR DEPTNO IS NULL
+	</select>
+	
+	<select id="getEmp" parameterType="empVo" resultMap="empMap">
+		SELECT 
+			E.EMPNO, E.ENAME, E.SAL, E.MANAGER, E.DEPTNO, 
+			E.HIREDATE, E.AGE, E.COMM, D.DNAME
+		FROM EMP E, DEPT D
+		WHERE 
+			E.DEPTNO = D.DEPTNO(+)
+			AND EMPNO = #{empno}
+	</select>
+	<select id="hasDept"  resultType="int">
+		SELECT 
+			COUNT(0)
+		FROM EMP E
+		WHERE 
+			DEPTNO = #{deptno}
+	</select>
+	<insert id="empAdd" >
+		INSERT INTO EMP (EMPNO , ENAME , SAL , MANAGER , DEPTNO , HIREDATE , AGE , COMM )
+		VALUES (#{empno} ,#{ename} ,#{sal} ,#{manager} ,#{deptno} ,#{hiredate} ,#{age} ,#{comm})
+	</insert>
+	<select id="checkEmpno"  resultType="int">
+		SELECT 
+			COUNT(0)
+		FROM EMP 
+		WHERE 
+			EMPNO = #{empno}
+	</select>
+	
+	<update id="empModify">
+		UPDATE EMP
+		<set>
+			<if test="ename    != null"> ENAME    = #{ename   } , </if>
+			<if test="sal      != null"> SAL      = #{sal     } , </if>
+			<if test="manager  != null"> MANAGER  = #{manager } , </if>
+			<if test="deptno   != null"> DEPTNO   = #{deptno  } , </if>
+			<if test="hiredate != null"> HIREDATE = #{hiredate} , </if>
+			<if test="age      != null"> AGE      = #{age     } , </if>
+			<if test="comm     != null"> COMM     = #{comm    }  </if>
+		</set>
+		WHERE
+			EMPNO = #{empno}
+	</update>
+	
+	<delete id="empRemove">
+		DELETE EMP
+		WHERE EMPNO = #{empno}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

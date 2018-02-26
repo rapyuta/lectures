@@ -1,0 +1,30 @@
+body, div {
+	margin:0px;
+	padding:0px;
+}
+#wrapper {
+	margin: 0px 30px;
+}
+#title > h1 {
+	color: blue;
+}
+#search {
+	margin-bottom: 20px;
+}
+#buttons {
+	float: right;
+	margin-bottom: 5px;
+}
+
+#menu {
+	
+}
+
+.w3-bar > a {
+	margin: 3px 10px;
+	text-decoration: none;
+}
+
+.row {
+	cursor:pointer;
+}

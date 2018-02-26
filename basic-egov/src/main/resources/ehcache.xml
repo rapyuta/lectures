@@ -1,0 +1,12 @@
+<ehcache>
+<diskStore path="user.dir/second"/>
+   <cache name="cacheMem"
+           maxElementsInMemory="100"
+           eternal="false"
+           timeToIdleSeconds="360"
+           timeToLiveSeconds="1000"
+           overflowToDisk="false"
+           diskPersistent="false"  
+           memoryStoreEvictionPolicy="LRU">
+   </cache>
+</ehcache>

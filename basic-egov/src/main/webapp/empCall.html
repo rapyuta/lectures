@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>empCall</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		$('#empCall').click(empCall);
+	});
+	// test
+	function empCall() {
+		$.ajax({
+			url: 'http://localhost:8080/ohhoonim/hr/empListAjax.do?name=ju',
+			method: 'GET',
+			dataType: 'json',
+			success: function(data, status, jqXHR) {
+				alert(data.list);
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<input type="button" id="empCall" value="emp 가져오기"/>
+</body>
+</html>

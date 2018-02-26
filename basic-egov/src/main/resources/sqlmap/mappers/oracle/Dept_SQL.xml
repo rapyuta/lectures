@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Dept">
+
+	<resultMap id="dept" type="com.ohhoonim.vo.DeptVo">
+		<result property="deptno" 	column="DEPTNO" />
+		<result property="dname" 	column="DNAME" />
+		<result property="loc" 		column="LOC" />
+	</resultMap>
+
+	<select id="deptList" parameterType="deptVo" resultMap="dept">
+		SELECT DEPTNO, DNAME, LOC
+		FROM DEPT
+		WHERE DNAME LIKE '%' || #{dname} || '%'
+	</select>
+	<insert id="deptAdd">
+		INSERT INTO DEPT (DEPTNO, DNAME, LOC) 
+		VALUES (#{deptno}, #{dname}, #{loc})
+	</insert>
+	<select id="checkDeptno" parameterType="deptVo" resultType="int">
+		SELECT COUNT(0) FROM DEPT WHERE DEPTNO = #{deptno}
+	</select>
+	<delete id="removeDept">
+		DELETE DEPT WHERE DEPTNO = #{deptno}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

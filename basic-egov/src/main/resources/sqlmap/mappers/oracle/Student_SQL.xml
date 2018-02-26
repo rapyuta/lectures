@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Student">
+
+	<resultMap id="studentMap" type="com.ohhoonim.vo.StudentVo">
+		<result property="memberId" 	column="MEMBER_ID" />
+		<result property="memberPw" 	column="MEMBER_PW" />
+		<result property="memberName" 	column="MEMBER_NAME" />
+		<result property="memberBirth" 	column="MEMBER_BIRTH" />
+		<result property="memberGender" column="MEMBER_GENDER" />
+		<result property="memberEmail" 	column="MEMBER_EMAIL" />
+	</resultMap>
+	
+	<sql id="studentQuery">
+		SELECT 
+			  MEMBER_ID
+			, MEMBER_PW
+			, MEMBER_NAME
+			, MEMBER_BIRTH
+			, MEMBER_GENDER
+			, MEMBER_EMAIL
+		FROM STUDENT
+	</sql>
+	
+	
+	<!-- list -->
+	<select id="studentList" resultMap="studentMap">
+	SELECT *
+		FROM (
+			SELECT ROWNUM AS RN, A.*
+				FROM (
+					<include refid="studentQuery"/>
+					<where>
+						<if test="memberName != null">
+							MEMBER_NAME LIKE '%' || #{memberName} || '%'
+						</if>
+						<if test="memberGender != null and memberGender != ''">
+							AND MEMBER_GENDER = #{memberGender} 
+						</if>
+					</where>
+					ORDER BY MEMBER_ID DESC
+					) A
+		)
+		
+		<where>
+			<if test="pageSize != null and pageSize != '' and pageNo != null and pageNo != ''">		
+			 ROWNUM <![CDATA[ <= ]]> #{pageSize, jdbcType=INTEGER}
+				AND RN <![CDATA[ > ]]> (#{pageNo, jdbcType=INTEGER}-1)*#{pageSize, jdbcType=INTEGER}
+			</if>	
+		</where>
+		
+	</select>
+	
+	<select id="studentListCount" resultType="int">
+		SELECT COUNT(0) CNT FROM STUDENT
+		<where>
+			<if test="memberName != null">
+				MEMBER_NAME LIKE '%' || #{memberName} || '%'
+			</if>
+		</where>
+	</select>
+	
+	<!-- detail -->
+	<select id="studentDetail" resultMap="studentMap">
+		<include refid="studentQuery"/>
+		<where>
+			<if test="memberId != null">
+				MEMBER_ID = #{memberId}
+			</if>
+		</where>
+	</select>
+	
+	<!-- add -->
+	<insert id="addStudent">
+		INSERT INTO STUDENT (
+			  MEMBER_ID    
+			, MEMBER_PW    
+			, MEMBER_NAME  
+			, MEMBER_BIRTH 
+			, MEMBER_GENDER
+			, MEMBER_EMAIL 
+		)
+		VALUES (
+			  #{memberId} 	
+			, #{memberPw}
+			, #{memberName}
+			, #{memberBirth}
+			, #{memberGender}
+			, #{memberEmail}
+		)
+	</insert>
+	
+	<!-- modify -->
+	<update id="modifyStudent">
+		UPDATE STUDENT
+		<set>
+			<if test="memberPw    != null">  MEMBER_PW    = #{memberPw}    </if>
+			<if test="memberName  != null">, MEMBER_NAME  = #{memberName}  </if>
+			<if test="memberBirth != null">, MEMBER_BIRTH = #{memberBirth} </if>
+			<if test="memberGender!= null">, MEMBER_GENDER= #{memberGender}</if>
+			<if test="memberEmail != null">, MEMBER_EMAIL = #{memberEmail} </if>
+		</set>
+		WHERE 
+			MEMBER_ID = #{memberId}
+	</update>
+	
+	<!-- delete -->
+	<delete id="removeStudent">
+		DELETE STUDENT 
+		WHERE 
+			MEMBER_ID = #{memberId}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
