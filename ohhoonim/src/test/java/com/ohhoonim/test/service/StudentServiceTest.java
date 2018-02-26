@@ -1,29 +1,8 @@
 package com.ohhoonim.test.service;
 
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doAnswer;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
-
-import com.ohhoonim.board.service.BoardService;
-import com.ohhoonim.board.service.impl.BoardServiceImpl;
-import com.ohhoonim.dao.BoardDao;
-import com.ohhoonim.dao.StudentDao;
-import com.ohhoonim.stdt.service.StudentService;
-import com.ohhoonim.stdt.service.impl.StudentServiceImpl;
-import com.ohhoonim.vo.BoardVo;
-import com.ohhoonim.vo.StudentVo;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +10,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
+
+import com.ohhoonim.dao.StudentDao;
+import com.ohhoonim.stdt.service.StudentService;
+import com.ohhoonim.stdt.service.impl.StudentServiceImpl;
+import com.ohhoonim.vo.StudentVo;
 
 
 @RunWith(MockitoJUnitRunner.class)

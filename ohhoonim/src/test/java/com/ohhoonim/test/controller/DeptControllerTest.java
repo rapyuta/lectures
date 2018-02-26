@@ -5,14 +5,14 @@ import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,17 +27,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.ohhoonim.board.service.BoardService;
-import com.ohhoonim.board.web.BoardController;
 import com.ohhoonim.hr.service.DeptService;
-import com.ohhoonim.hr.service.EmpService;
 import com.ohhoonim.hr.web.DeptController;
-import com.ohhoonim.hr.web.EmpController;
-import com.ohhoonim.vo.BoardVo;
 import com.ohhoonim.vo.DeptVo;
-import com.ohhoonim.vo.EmpVo;
-
-import oracle.jdbc.proxy.annotation.Post;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
