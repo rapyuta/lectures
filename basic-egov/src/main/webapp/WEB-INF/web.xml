@@ -13,14 +13,15 @@
     <filter-name>encodingFilter</filter-name>
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
-  <filter>
+<!-- <filter>
     <filter-name>HTMLTagFilter</filter-name>
     <filter-class>egovframework.rte.ptl.mvc.filter.HTMLTagFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>HTMLTagFilter</filter-name>
     <url-pattern>*.do</url-pattern>
-  </filter-mapping>
+  </filter-mapping> 
+  -->  
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath*:spring/context-*.xml</param-value>

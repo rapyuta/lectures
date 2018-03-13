@@ -47,22 +47,21 @@ public class Utils {
 			if (setDateStr == null || setDateStr == ""){
 				setDateStr = date.toString();
 			}
-			
-			LOGGER.debug("=======================================================");
-			LOGGER.debug("입력받은 날짜 : " + setDateStr);
-			LOGGER.debug("=======================================================");
-			
-			date = sdf.parse(setDateStr);
-			LOGGER.debug("=======================================================");
-			LOGGER.debug("변환된 날짜 : " + date);
-			LOGGER.debug("=======================================================");
-			modifyDate= sdf2.format(date);
-			
-			LOGGER.debug("=======================================================");
-			LOGGER.debug("수정된 날짜 : " + modifyDate);
-			LOGGER.debug("=======================================================");
-			
-			
+			else {	
+				LOGGER.debug("=======================================================");
+				LOGGER.debug("입력받은 날짜 : " + setDateStr);
+				LOGGER.debug("=======================================================");
+				
+				date = sdf.parse(setDateStr);
+				LOGGER.debug("=======================================================");
+				LOGGER.debug("변환된 날짜 : " + date);
+				LOGGER.debug("=======================================================");
+				modifyDate= sdf2.format(date);
+				
+				LOGGER.debug("=======================================================");
+				LOGGER.debug("수정된 날짜 : " + modifyDate);
+				LOGGER.debug("=======================================================");
+			}		
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -77,10 +76,12 @@ public class Utils {
 	
 	//숫자를 원하는 포맷으로 변경
 	public static String customNum(String strNum, String format){
-		int intNum = Integer.parseInt(strNum);
-		DecimalFormat df = new DecimalFormat(format);
-		String customNum = df.format(intNum);
-		
+		String customNum = "";
+		if (strNum != null && strNum.length() > 0) {
+			int intNum = Integer.parseInt(strNum);
+			DecimalFormat df = new DecimalFormat(format);
+			customNum = df.format(intNum);
+		}
 		return customNum;
 	}
 	

@@ -9,14 +9,25 @@ CREATE TABLE ids (
 
 DROP TABLE files;
 
-CREATE TABLE files (
-    file_id   VARCHAR2(16),
-    file_n    VARCHAR2(100),
-    file_u    VARCHAR2(100),
-    file_s    VARCHAR2(4000),
-    c_type    VARCHAR2(100),
-    link      VARCHAR2(4000)
-);
+--CREATE TABLE files (
+--    file_id   VARCHAR2(16),
+--    file_n    VARCHAR2(100),
+--    file_u    VARCHAR2(100),
+--    file_s    VARCHAR2(4000),
+--    c_type    VARCHAR2(100),
+--    link      VARCHAR2(4000)
+--);
+
+CREATE TABLE FILES (
+    FILES_ID     NUMBER,
+    FILES_NM      VARCHAR2(400),
+    FILES_UFN     VARCHAR2(400),
+    FILES_SIZE    NUMBER,
+    FILES_TYPE    VARCHAR2(100),
+    FILES_DL      VARCHAR2(4000)
+ );
+ 
+ CREATE SEQUENCE FILES_SEQ;
 
 DROP TABLE board;
 

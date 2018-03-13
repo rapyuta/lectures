@@ -22,6 +22,15 @@
         <property name="username" value="${database.oracle.userid}"/>
         <property name="password" value="${database.oracle.password}"/>
     </bean>
+    
+    <!-- mysql로 사용할 경우 -->
+    <!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="${database.mysql.url}" />
+        <property name="username" value="${database.mysql.userid}"/>
+        <property name="password" value="${database.mysql.password}"/>
+    </bean> -->
+    
 	<!-- jndi를 이용할 때 -->
     <!-- 
     <bean id="dataSource" name="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">

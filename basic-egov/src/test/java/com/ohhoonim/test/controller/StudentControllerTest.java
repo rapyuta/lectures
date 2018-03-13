@@ -30,6 +30,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ohhoonim.stdt.service.StudentService;
 import com.ohhoonim.stdt.web.StudentController;
@@ -122,8 +123,9 @@ public class StudentControllerTest {
 				.param("memberGender","m")
 				.param("memberEmail","t")
 				;
-		
+
 		int addedCnt = studentService.addStudent((StudentVo)anyObject());
+		
 		when(addedCnt).thenReturn(1);		
 		
 		mockMvc.perform(calledUrl)
@@ -213,8 +215,3 @@ public class StudentControllerTest {
 		;
 	}
 }
-
-
-
-
-

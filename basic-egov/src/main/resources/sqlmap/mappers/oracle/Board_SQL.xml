@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+	<resultMap id="empvo" type="com.ohhoonim.vo.EmpVo">
+		<result property="empno" 	column="EMPNO" />
+		<result property="ename" 	column="ENAME" />
+		<result property="sal" 		column="SAL" />
+		<result property="manager" 	column="MANAGER" />
+		<result property="deptno" 	column="DEPTNO" />
+		<result property="hiredate" column="HIREDATE" />
+		<result property="age" 		column="AGE" />
+		<result property="comm" 	column="COMM" />
+	</resultMap>
+	
+	<sql id="empQuery">
+		select EMPNO, ENAME, SAL, MANAGER, 
+				DEPTNO, HIREDATE, AGE, COMM 
+		  from EMP 		
+	</sql>
+
+	<select id="boardList" resultMap="empvo">
+		<include refid="empQuery"></include>
+		<where>
+			<choose>
+				<when test="searchType == 'empno'">
+					<if test="searchWord != ''">
+						EMPNO = #{searchWord}
+					</if>
+				</when>
+				<when test="searchType == 'ename'">
+					ENAME LIKE '%' || #{searchWord} || '%'
+				</when>
+			</choose>
+		</where>
+	</select>
+ 	
+	<select id="boardDetail" resultMap="empvo">
+		<include refid="empQuery"></include>
+		  where
+		  	EMPNO = #{empno}
+	</select>
+	
+	<delete id="boardRemove">
+		DELETE EMP WHERE EMPNO = #{empno}	
+	</delete>
+	
+	<insert id="boardAdd">
+		INSERT INTO EMP ( EMPNO, ENAME, SAL, MANAGER
+								, DEPTNO, HIREDATE, AGE, COMM)
+		VALUES ( #{empno}, #{ename}, #{sal}, #{manager}
+					, #{deptno}, #{hiredate}, #{age}, #{comm})
+	</insert>
+	
+	<update id="boardModify">
+		UPDATE EMP 
+		<set>
+			<if test="ename != null">		ENAME	= #{ename},		</if>			
+			<if test="sal != null">			SAL = #{sal},					</if>
+			<if test="manager != null">	MANAGER = #{manager},	</if>
+			<if test="deptno != null">		DEPTNO = #{deptno},		</if>
+			<if test="hiredate != null">	HIREDATE = #{hiredate},	</if>
+			<if test="age != null">			AGE = #{age},				</if>
+			<if test="comm != null">		COMM = #{comm}			</if>
+		</set> 			  
+		WHERE EMPNO = #{empno}
+	</update>
+	
+	<resultMap id="deptvo" type="com.ohhoonim.vo.DeptVo">
+		<result property="deptno" 	column="DEPTNO" />
+		<result property="dname" 	column="DNAME" />
+		<result property="loc" 	column="LOC" />
+	</resultMap>
+	
+	<select id="deptList" resultMap="deptvo">
+		SELECT DEPTNO, DNAME, LOC 
+		FROM DEPT
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

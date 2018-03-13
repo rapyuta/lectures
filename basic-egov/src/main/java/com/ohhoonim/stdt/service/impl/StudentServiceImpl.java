@@ -7,7 +7,9 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.ohhoonim.common.service.FilesService;
 import com.ohhoonim.dao.StudentDao;
 import com.ohhoonim.stdt.service.StudentService;
 import com.ohhoonim.vo.StudentVo;
@@ -18,6 +20,8 @@ import egovframework.rte.fdl.cmmn.trace.LeaveaTrace;
 public class StudentServiceImpl implements StudentService{
 	@Resource(name="studentDao")
 	StudentDao dao;
+	@Resource(name="filesService")
+	FilesService fileService;
 	
 	@Override
 	public Map<String, Object> studentList(StudentVo vo) {
@@ -39,6 +43,15 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public int addStudent(StudentVo vo) {
+		int insertCnt = dao.addStudent(vo);
+		return insertCnt;
+	}
+
+	@Override
+	//public int addStudent(StudentVo vo) {
+	public int addStudent(StudentVo vo, MultipartFile file, String contextPath) throws Exception {
+			String fileId = fileService.addFiles(file, contextPath);
+			vo.setFilesId(fileId);
 		int insertCnt = dao.addStudent(vo);
 		return insertCnt;
 	}

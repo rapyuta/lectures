@@ -39,6 +39,8 @@ $(function(){
 	$('#memberBirth').datepicker({
 		  dateFormat: "yy-mm-dd"
 	});
+	
+	/*
 	$('#btnDupCheck').click(function(){
 		if( $('#empno').val() != '' ) {
 			$.ajax({
@@ -64,6 +66,7 @@ $(function(){
 			alert('아이디를 입력해주세요');
 		}
 	});
+	*/
 
 });
 </script>
@@ -83,7 +86,7 @@ $(function(){
         	<input type="button" value="목록" id="btnList">
         	
         </div>
-	    <form name="frm" action="<%=contextPath %>/stdt/studentAdd.do" method="post">
+	    <form name="frm" action="<%=contextPath %>/stdt/studentAdd.do" method="post"  enctype="multipart/form-data">
 			아이디: <input type="text" name="memberId" id="memberId" value="<%=stdtVo.getMemberId()%>"><input type="button" value="중복확인" id="btnDupCheck"><br>
 			패스워드: <input type="password" name="memberPw"  value=""><br>
 			이름: <input type="text" name="memberName" value="<%=stdtVo.getMemberName()%>"><br>
@@ -93,6 +96,7 @@ $(function(){
 	  		<br>
 	  		이메일: <input type="text" name="memberEmail" value="<%=stdtVo.getMemberEmail()%>"><br>
 	  		
+	  		<input type="file" name="file">
 	  		<input type="submit" value="학생추가">
 	    </form>        
     </div>

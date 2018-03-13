@@ -10,6 +10,7 @@
 		<result property="memberBirth" 	column="MEMBER_BIRTH" />
 		<result property="memberGender" column="MEMBER_GENDER" />
 		<result property="memberEmail" 	column="MEMBER_EMAIL" />
+		<result property="filesId" 	column="FILES_ID" />
 	</resultMap>
 	
 	<sql id="studentQuery">
@@ -20,7 +21,8 @@
 			, MEMBER_BIRTH
 			, MEMBER_GENDER
 			, MEMBER_EMAIL
-		FROM STUDENT
+     		, FILES_ID
+		FROM STUDENT S
 	</sql>
 	
 	
@@ -80,6 +82,7 @@
 			, MEMBER_BIRTH 
 			, MEMBER_GENDER
 			, MEMBER_EMAIL 
+			, FILES_ID
 		)
 		VALUES (
 			  #{memberId} 	
@@ -88,6 +91,7 @@
 			, #{memberBirth}
 			, #{memberGender}
 			, #{memberEmail}
+			, #{filesId}
 		)
 	</insert>
 	

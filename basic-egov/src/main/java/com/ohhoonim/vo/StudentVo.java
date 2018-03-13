@@ -10,6 +10,15 @@ public class StudentVo extends CommonVo {
 	private Date   memberBirth   ;
 	private String memberGender  ;
 	private String memberEmail   ;
+	private String filesId ;
+		public String getFilesId() {
+		return filesId;
+	}
+			
+		public void setFilesId(String filesId) {
+			this.filesId = filesId;
+		}	
+	
 
 	public void init() throws Exception{
 		this.memberId    = "";

@@ -10,7 +10,6 @@ com\ohhoonim\common\ExcepHndlr.class
 com\ohhoonim\common\LoginCheckInterceptor.class
 com\ohhoonim\vo\DeptVo.class
 com\ohhoonim\stdt\service\impl\StudentServiceImpl.class
-com\ohhoonim\board\web\AjaxBoardController.class
 com\ohhoonim\vo\BoardVo.class
 com\ohhoonim\vo\PageVo.class
 com\ohhoonim\hr\service\impl\EmpServiceImpl.class
@@ -18,15 +17,12 @@ com\ohhoonim\stdt\web\StudentController.class
 com\ohhoonim\hr\service\EmpService.class
 com\ohhoonim\common\service\impl\FilesServiceImpl.class
 com\ohhoonim\excelView\StudentExcelView.class
-com\ohhoonim\board\web\BoardController.class
 com\ohhoonim\dao\DeptDao.class
-com\ohhoonim\board\service\BoardService.class
 com\ohhoonim\hr\web\DeptController.class
 com\ohhoonim\dao\Mapper.class
 com\ohhoonim\common\service\IdGenService.class
 com\ohhoonim\common\service\FilesService.class
 com\ohhoonim\hr\web\DeptEmpController.class
-com\ohhoonim\board\service\impl\BoardServiceImpl.class
 com\ohhoonim\dao\IdGenDao.class
 com\ohhoonim\common\util\SimplePOIExcelView.class
 com\ohhoonim\hr\service\impl\DeptServiceImpl.class
@@ -34,7 +30,6 @@ com\ohhoonim\common\Constants.class
 com\ohhoonim\common\web\FileUpDownController.class
 com\ohhoonim\dao\FilesDao.class
 com\ohhoonim\dao\EmpDao.class
-com\ohhoonim\dao\BoardDao.class
 com\ohhoonim\hr\web\EmpController.class
 com\ohhoonim\vo\StudentVo.class
 com\ohhoonim\hr\service\DeptService.class

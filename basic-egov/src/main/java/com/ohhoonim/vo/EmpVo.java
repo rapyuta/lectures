@@ -1,6 +1,6 @@
 package com.ohhoonim.vo;
 
-public class EmpVo {
+public class EmpVo extends BoardCommonVo{
 	private String empno   ;  
 	private String ename   ;  
 	private String sal     ;  

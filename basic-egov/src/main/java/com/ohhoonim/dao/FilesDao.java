@@ -25,5 +25,9 @@ public class FilesDao extends EgovAbstractMapper{
 	public int deleteFiles(FilesVo vo) {
 		return delete("deleteFiles", vo);
 	}
+	
+	public String getNextId() {
+		return selectOne("Files.getNextId");
+	}
 
 }

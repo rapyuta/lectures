@@ -2,20 +2,24 @@ package com.ohhoonim.common.web;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ohhoonim.common.service.FilesService;
 import com.ohhoonim.vo.FilesVo;
 
 @Controller
@@ -28,6 +32,36 @@ public class FileUpDownController {
 
 	}
 	 */
+	
+	@Resource(name = "filesService")
+	FilesService filesService;
+	
+	@RequestMapping("/common/download.do")
+		public void download(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			String filesId = request.getParameter("filesId"); 
+	
+			FilesVo vo = new FilesVo();
+			vo.setFilesId(filesId);
+			FilesVo fileInfo = filesService.selectFiles(vo);
+			if (fileInfo != null) {
+				byte fileByte[] = FileUtils.readFileToByteArray(new File("C:\\Upload\\"+fileInfo.getFilesUfn()));
+			     
+			    response.setContentType("application/octet-stream");
+			    response.setContentLength(fileByte.length);
+			    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileInfo.getFilesNm(),"UTF-8")+"\";");
+			    response.setHeader("Content-Transfer-Encoding", "binary");
+			    response.getOutputStream().write(fileByte);
+			     
+			    response.getOutputStream().flush();
+			    response.getOutputStream().close();
+	
+			} else {
+				PrintWriter out = response.getWriter();
+				out.print("파일을 찾을 수 없습니다.");
+			}
+	 	}
+	
+	
 	@RequestMapping(value = "/common/imageFileUpload.do", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public HashMap<String, Object> image(MultipartHttpServletRequest request) throws Exception {
@@ -46,15 +80,22 @@ public class FileUpDownController {
 			file.transferTo(new File(uploadPath + "/" + uploadedFileName));
 		}
 
-		String downlink = request.getContextPath() + "/common/image.do?of=" + URLEncoder.encode(fileName, "UTF-8") + "&f="
-				+ URLEncoder.encode(uploadedFileName, "UTF-8");
+//		String downlink = request.getContextPath() + "/common/image.do?of=" + URLEncoder.encode(fileName, "UTF-8") + "&f="
+//				+ URLEncoder.encode(uploadedFileName, "UTF-8");
+		String downlink = request.getContextPath() + "/common/image.do?of=" + URLEncoder.encode(fileName, "UTF-8")
+						+ "&f=" + URLEncoder.encode(uploadedFileName, "UTF-8");
 
 		FilesVo vo = new FilesVo();
-		vo.setFileN(fileName);
-		vo.setFileU(uploadedFileName);
-		vo.setFileS(file.getSize()+"");
-		vo.setcType(contentType);
-		vo.setLink(downlink);
+//		vo.setFileN(fileName);
+//		vo.setFileU(uploadedFileName);
+//		vo.setFileS(file.getSize()+"");
+//		vo.setcType(contentType);
+//		vo.setLink(downlink);
+		vo.setFilesNm(fileName);
+		vo.setFilesUfn(uploadedFileName);
+				vo.setFilesSize(file.getSize() + "");
+				vo.setFilesType(contentType);
+				vo.setFilesDl(downlink);
 
 		result.put("file", vo);
 

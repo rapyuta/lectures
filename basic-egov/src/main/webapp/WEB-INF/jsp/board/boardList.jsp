@@ -1,111 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.List"%>
-<%@ page import="com.ohhoonim.vo.BoardVo"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.ohhoonim.vo.EmpVo" %>
+<%@ page import="com.ohhoonim.common.util.Utils" %>
+<%@ include file="/WEB-INF/jsp/inc/commonBoard.jsp" %>
+
 <%
-	String contextPath = request.getContextPath();
-	List<BoardVo> list = (List<BoardVo>) request.getAttribute("resultList");
-	List<BoardVo> notice = (List<BoardVo>) request.getAttribute("noticeList");
-	String title = (String) request.getAttribute("title");
-	String fName = (String)request.getAttribute("fName");
+	List<EmpVo> list = (List<EmpVo>)request.getAttribute("list");
+	String searchType = (String)request.getAttribute("searchType");  //empno, ename
+	String searchWord = (String)request.getAttribute("searchWord");
 %>
-
-<!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>List</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http:<%=contextPath %>/css/w3.css">
-</head>
-<body>
-<div>
-<jsp:include page="/WEB-INF/jsp/inc/menu_header.jsp">
-		<jsp:param name="curMenu" value="board"/>
-</jsp:include>
-</div>
-
-<article class="container">
-		<div class="page-header">
-		<h1>자유게시판 <small>Board</small></h1>
-		</div>
-		</article>
-	<div class="col-md-6 col-md-offset-3">
-
-		<div>		
-			<form action="<%=contextPath%>/board/board.do" method="post"
-				name="searchForm3">
-				게시물 검색 : <input type="text"
-					class="w3-input  w3-border w3-round-large " name=title
-					value="<%=title%>" style="width: 30%; display: inline"> <input
-					type="submit" class="w3-btn w3-brown w3-round-xxlarge" value="검색">
-							  <input type="hidden" name="pageNo" value="${paging.pageNo}">
-			</form>
-		</div>
-
-		<div class="w3-container  w3-right-align  w3-margin">
-			<a href="<%=contextPath%>/board/boardAddView.do"
-				class="w3-btn w3-brown">글쓰기</a>
-				<a href="<%=contextPath%>/board/board.do"
-				class="w3-btn w3-brown">목록</a>
-		</div>
-
-		<div>
-			<table class="w3-table w3-bordered w3-striped w3-border test">
-				<tr class="w3-brown">
-					<th class="w3-center">게시판번호</th>
-					<th class="w3-center">분류</th>
-					<th class="w3-center">회원아이디</th>
-					<th class="w3-center">제목</th>
-					<th class="w3-center">등록일</th>
-					<th class="w3-center">조회수</th>
-				</tr>
-				
-				<%
-					for (BoardVo vo : notice) {
-				%>
-
-				<tr>
-
-					<td class="w3-center"><%=vo.getbNumber()%></td>
-					<td class="w3-center"><font color="red"><%=vo.getCategory()%></font></td>
-					<td class="w3-center"><%=vo.getMemberId()%></td>
-					<td class="w3-center"><a
-						href="<%=contextPath%>/board/boardView.do?bNumber=<%=vo.getbNumber()%>">
-							<%=vo.getTitle()%></a></td>
-					<td class="w3-center"><%=vo.getrDate()%></td>
-					<td class="w3-center"><%=vo.getClickNum()%></td>
-					
-					</tr>
-				<%
-					}
-				%>		
-				
-				<%
-					for (BoardVo vo : list) {
-				%>
-
-				<tr>
-
-
-					<td class="w3-center"><%=vo.getbNumber()%></td>
-					<td class="w3-center"><%=vo.getCategory()%></td>
-					<td class="w3-center"><%=vo.getMemberId()%></td>
-					<td class="w3-center"><a
-						href="<%=contextPath%>/board/boardView.do?bNumber=<%=vo.getbNumber()%>">
-							<%=vo.getTitle()%></a></td>
-					<td class="w3-center"><%=vo.getrDate()%></td>
-					<td class="w3-center"><%=vo.getClickNum()%></td>
-					</tr>
-				<%
-					}
-				%>
-
-
-			</table>
-			</div>
-		<center>
-			<jsp:include page="/WEB-INF/jsp/inc/paging.jsp">
+	<head>
+		<title>목록</title>
+		<link rel="stylesheet" href="<%=contextRoot %>/css/w3.css">
+	</head>
+	<body>
+		<h1>목록</h1>
+		<hr>		
+		<a href="<%=contextRoot%>/board/boardAddView.do">추가 화면 이동</a>
+		<hr>
+		<form name="searchFrm" action="<%=contextRoot%>/board/boardList.do" method="post">
+			<select name="searchType">
+				<option value="ename" <%= searchType.equals("ename") ? "selected" : "" %>>사원명</option>
+				<option value="empno" <%= searchType.equals("empno") ? "selected" : "" %>>사원번호</option>
+			</select>
+			<input type="text" name="searchWord" value="">
+			<input type="hidden" name="pageNo" value="">
+			<input type="hidden" name="pageSize" value="10">
+			<input type="submit" value="검색">
+		</form>
+		<table class="w3-table w3-bordered w3-striped w3-border">
+			<tr class="w3-brown">
+				<th>EMPNO</th>
+				<th>ENAME</th>
+				<th>SAL</th>
+				<th>MANAGER</th>
+				<th>DEPTNO</th>
+				<th>HIREDATE</th>
+				<th>AGE</th>
+				<th>COMM</th>
+			</tr>
+			<%
+			for(int i = 0; i < list.size(); i++) {
+				EmpVo vo = list.get(i);
+			%>
+			<tr>
+				<td><a href="<%=contextRoot%>/board/boardDetail.do?empno=<%=vo.getEmpno() %>"><%=vo.getEmpno() %></a></td>
+				<td><%=Utils.toEmptyBlank(vo.getEname()) %></td>
+				<td><%=Utils.toEmptyBlank(vo.getSal()) %></td>
+				<td><%=Utils.toEmptyBlank(vo.getManager()) %></td>
+				<td><%=Utils.toEmptyBlank(vo.getDeptno()) %></td>
+				<td><%=Utils.dateFommatter(vo.getHiredate()) %></td>
+				<td><%=Utils.toEmptyBlank(vo.getAge()) %></td>
+				<td><%=Utils.customNum(vo.getComm(), "#,##0") %></td>
+			</tr>
+			<%
+			}
+			%>
+		</table>		
+		<jsp:include page="/WEB-INF/jsp/inc/paging.jsp">
 				<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
 				<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
 				<jsp:param name="startPageNo" value="${paging.startPageNo}" />
@@ -115,18 +69,12 @@
 				<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
 			
 			</jsp:include>
-		</center>
-		</div>
+		
 		<script type="text/javascript">
 			function goPage(pageNo) {
-				document.searchForm3.pageNo.value = pageNo;
-				document.searchForm3.submit();
+				document.searchFrm.pageNo.value = pageNo;
+				document.searchFrm.submit(); //위에있는 검색 submit을 실행시켜라
 			}
-		</script>
-		
-		
-
-
-	</div>
-</body>
+		</script>	
+	</body>
 </html>

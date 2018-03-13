@@ -78,6 +78,7 @@ $(function(){
                     <th>이름</th>
                     <th>성별</th>
                     <th>이메일</th>
+                    <th>download</th>
                 </tr>
                 <!-- 데이터 출력 -->
                 <%
@@ -88,6 +89,7 @@ $(function(){
                 	<td><%=row.getMemberName() %></td>
                 	<td><%= Utils.toEmptyBlank(row.getMemberGender()) %></td>
                 	<td><%= Utils.toEmptyBlank(row.getMemberEmail()) %></td>
+                	<td><a href="<%=contextPath %>/common/download.do?filesId=<%= Utils.toEmptyBlank(row.getFilesId()) %>">첨부다운</a></td>
                 </tr>
                 <%
 					}
