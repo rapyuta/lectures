@@ -47,7 +47,7 @@ public class FilesServiceImpl implements FilesService {
 		}
 		String nextFilesId = dao.getNextId();
 		
-		//다운로드 링크정보
+		//다운로드 링크정보 <= 별도로 작성된 다운로드 Controller url을 적어준다.
 		String downlink = contextPath + "/common/download.do?filesId=" + nextFilesId;
 
 		FilesVo vo = new FilesVo();
